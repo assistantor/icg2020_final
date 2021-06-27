@@ -1,0 +1,119 @@
+StartMenuUI
+
+Start btn -> GameStart
+
+Setting btn -> GameSetting
+
+Language drowdown -> SetLanguage
+
+
+
+Game Time scrollbar -> SetGameTime
+
+Request Time scrollbar -> SetRequestTime
+
+GenerateRate scroll bar -> SetGameCarrotGenerateRate
+
+Special Case -> SetGameCase
+
+Mini Map -> SetMiniMap
+
+Reset High Score btn -> ResetHighScore
+
+Back btn -> SetToStartMenu
+
+-----
+
+score event
+message event
+game event
+
+GameUI
+
+    GameOverEvent OnGameOver = () => { };
+
+m        Timer.OnMessageAdded += HandleOnTimerMessageAdded;
+m        Timer.OnTimerOver += HandleOnTimerOver;
+        
+m        RequestCenter.OnRequestMessageAdded += HandleOnRequestMessageAdded;
+m        RequestCenter.OnRequestDistanceShower += HandleOnRequestDistanceShower;
+m        RequestCenter.OnCarFlipOverMessageAdded += HandleOnCarMessageAdded;
+m        RequestCenter.OnCarTakenSpecialCarrotMessageAdded += HandleOnCarMessageAdded;
+
+s        RequestCenter.OnRequestScoreChanged += HandleOnRequestScoreEvent;
+
+s        PlayerControl.OnCarScoreTakenCarrot += HandleOnCarScoreTakenCarrotEvent;
+s        PlayerControl.OnCarScoreTakenSpecialCarrot += HandleOnCarScoreTakenSpecialCarrotEvent;
+s        PlayerControl.OnCarScoreCollidePeople += HandleOnCarScoreCollidePeopleEvent;
+s        PlayerControl.OnCarScoreFlipOver += HandleOnCarScoreFlipOverEvent;
+
+g        PlayerControl.OnCarGamePaused += OnGamePaused;
+g        PlayerControl.OnCarGameResumed += OnGameResumed;
+
+RequestCenter
+
+    public event RequestMessageEvent OnRequestMessageAdded = (l, m) => { };
+
+    public event RequestScoreEvent OnRequestScoreChanged = (s) => { };
+
+    public event RequestDistanceMessageEvent OnRequestDistanceShower = (m) => { };
+
+    public event PlayerMessageEvent OnCarFlipOverMessageAdded = (m) => { };
+    public event PlayerMessageEvent OnCarTakenSpecialCarrotMessageAdded = (m) => { };
+
+g        RequestEntity.OnRequestHappened += HandleOnRequestHappened;
+g        RequestEntity.OnRequestTakedFood += HandleOnRequestTakedFood;
+g        RequestEntity.OnRequestGivedFood += HandleOnRequestGivedFood;
+g        RequestEntity.OnRequestCompleted += HandleOnRequestCompleted;
+g        RequestEntity.OnRequestFailed += HandleOnRequestFailed;
+g        RequestEntity.OnRequestDistanceShower += HandleOnRequestDistanceShower;
+
+m        PlayerControl.OnCarMessageFlipOver += HandleOnMessageFlipOver;
+m        PlayerControl.OnCarMessageTakenSpecialCarrot += HandleOnMessageTakenSpecialCarrot;
+
+g        PlayerControl.OnCarGamePaused += OnGamePaused;
+g        PlayerControl.OnCarGameResumed += OnGameResumed;
+
+RequestEntity
+
+    RequestEvent OnRequestHappened = (l, s) => { };
+    RequestEvent OnRequestTakedFood = (l, s) => { };
+    RequestEvent OnRequestGivedFood = (l, s) => { };
+    RequestEvent OnRequestCompleted = (l, s) => { };
+    RequestEvent OnRequestFailed = (l, s) => { };
+
+    RequestMessageEvent OnRequestDistanceShower = (m) => { };
+
+g        InteractableEntity.OnEntityInteracted += HandleOnTakedFood;
+g        InteractableEntity.OnEntityInteracted += HandleOnGivedFood;
+g        InteractableEntity.OnEntityDistanceShower += HandleOnDistanceShower;
+
+PlayerControl
+
+    CarBehaviorScoreEvent OnCarScoreFlipOver = (s) => { };
+    CarBehaviorScoreEvent OnCarScoreCollidePeople = (s) => { };
+    CarBehaviorScoreEvent OnCarScoreTakenCarrot = (s) => { };
+    CarBehaviorScoreEvent OnCarScoreTakenSpecialCarrot = (s) => { };
+
+    CarBehaviorTimeEvent OnCarTimeTakenSpecialCarrot = (t) => { };
+
+    CarBehaviorMessageEvent OnCarMessageFlipOver = (s) => { };
+    CarBehaviorMessageEvent OnCarMessageTakenSpecialCarrot = (s) => { };
+
+    CarBehaviorPauseEvent OnCarGamePaused = () => { };
+    CarBehaviorPauseEvent OnCarGameResumed = () => { };
+
+g        GameUI.OnGameOver += OnGameOvered;
+
+InteractableEntity
+
+    EntityEvent OnEntityInteracted = () => { };
+    EntityDistanceEvent OnEntityDistanceShower = (d) => { };
+
+Timer
+
+    public event TimerMessageEvent OnMessageAdded = (m) => { };
+
+    public event TimerOverEvent OnTimerOver = () => { };
+
+
